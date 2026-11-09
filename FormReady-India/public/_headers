@@ -1,0 +1,11 @@
+/* Security headers for Cloudflare Pages.
+   A strict Content-Security-Policy is intentionally NOT set here: ad networks load
+   third-party scripts, and a CSP must be written against the exact domains in your
+   verified Adsterra code. Add one yourself after you have your ad code. */
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  X-Frame-Options: SAMEORIGIN
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

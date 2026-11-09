@@ -1,0 +1,26 @@
+{
+  "tools": [
+    "image-compressor",
+    "photo-resizer",
+    "signature-resizer",
+    "pdf-compressor",
+    "jpg-to-pdf",
+    "pdf-merger"
+  ],
+  "guides": [
+    "reduce-photo-size-for-online-form",
+    "signature-size-for-online-forms",
+    "pdf-too-large-what-to-do",
+    "document-upload-checklist"
+  ],
+  "pages": [
+    "",
+    "tools",
+    "guides",
+    "about",
+    "contact",
+    "privacy-policy",
+    "terms",
+    "disclaimer"
+  ]
+}
