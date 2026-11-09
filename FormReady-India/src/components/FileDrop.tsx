@@ -1,5 +1,5 @@
 import { useRef, useState, type DragEvent } from 'react';
-import { UploadCloud } from 'lucide-react';
+import { Upload } from 'lucide-react';
 import { useLang } from '../i18n';
 import { validateFiles, type FileKind } from '../lib/files';
 
@@ -54,7 +54,7 @@ export default function FileDrop({ accept, allowed, maxMB, multiple, disabled, l
           disabled={disabled}
           onChange={(e) => void handle(e.target.files)}
         />
-        <UploadCloud size={36} aria-hidden="true" />
+        <Upload size={36} aria-hidden="true" />
         <strong>{label ?? tr('Tap to choose a file', 'फ़ाइल चुनने के लिए टैप करें')}</strong>
         <span className="muted">
           {tr(

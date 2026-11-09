@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Lock, LockOpen, Plus, RotateCcw, Wand2 } from 'lucide-react';
+import { Lock, Unlock, Plus, RotateCcw, Zap } from 'lucide-react';
 import FileDrop from '../components/FileDrop';
 import ResultCard from '../components/ResultCard';
 import { useLang } from '../i18n';
@@ -206,7 +206,7 @@ export default function ResizeTool({ kind }: { kind: 'photo' | 'signature' }) {
             <div className="chips">
               {presets.map((p, i) => (
                 <button key={`${p.label}-${i}`} type="button" className="chip" onClick={() => applyPreset(p)}>
-                  {p.label}{p.kb ? '' : ''}
+                  {p.label}
                 </button>
               ))}
               <button type="button" className="chip chip-add" onClick={savePreset} aria-label={tr('Save current values as a preset for this visit', 'वर्तमान मान को इस विज़िट के लिए प्रीसेट के रूप में सहेजें')}>
@@ -227,7 +227,7 @@ export default function ResizeTool({ kind }: { kind: 'photo' | 'signature' }) {
               aria-label={lock ? tr('Aspect ratio locked', 'अनुपात लॉक है') : tr('Aspect ratio unlocked', 'अनुपात अनलॉक है')}
               onClick={() => setLock((l) => !l)}
             >
-              {lock ? <Lock size={20} /> : <LockOpen size={20} />}
+              {lock ? <Lock size={20} /> : <Unlock size={20} />}
             </button>
             <label className="field">
               <span>{tr('Height (px)', 'ऊँचाई (px)')}</span>
@@ -288,7 +288,7 @@ export default function ResizeTool({ kind }: { kind: 'photo' | 'signature' }) {
           )}
 
           <button type="button" className="btn btn-primary btn-block" disabled={busy} onClick={run}>
-            <Wand2 size={20} /> {busy ? tr('Processing…', 'प्रोसेस हो रहा है…') : isSign ? tr('Resize signature', 'हस्ताक्षर रिसाइज़ करें') : tr('Resize photo', 'फोटो रिसाइज़ करें')}
+            <Zap size={20} /> {busy ? tr('Processing…', 'प्रोसेस हो रहा है…') : isSign ? tr('Resize signature', 'हस्ताक्षर रिसाइज़ करें') : tr('Resize photo', 'फोटो रिसाइज़ करें')}
           </button>
         </>
       )}

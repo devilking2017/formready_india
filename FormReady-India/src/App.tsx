@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import AllTools from './pages/AllTools';
 import { GuidePage, GuidesIndex } from './pages/Guides';
 import { About, Contact, Disclaimer, NotFound, Privacy, Terms } from './pages/Static';
+import ErrorBoundary from './components/ErrorBoundary';
 import { useLang } from './i18n';
 import { tools } from './content/tools';
 
@@ -25,6 +26,7 @@ export default function App() {
       <a className="skip" href="#main">{tr('Skip to content', 'सामग्री पर जाएँ')}</a>
       <Header />
       <main id="main">
+        <ErrorBoundary>
         <Suspense fallback={<div className="container page"><p className="muted">{tr('Loading…', 'लोड हो रहा है…')}</p></div>}>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -42,6 +44,7 @@ export default function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
+        </ErrorBoundary>
       </main>
       <Footer />
     </>
