@@ -55,8 +55,8 @@ export interface AdUnit {
 }
 
 export const adUnits: Record<UnitKey, AdUnit> = {
-  banner728x90: { width: 728, height: 90, html: `` }, 
-  <script>
+  banner728x90: { width: 728, height: 90, html: `
+<script>
   atOptions = {
     'key' : 'f0e81d2ac3f13ddeddb5a83ff2d009db',
     'format' : 'iframe',
@@ -66,13 +66,72 @@ export const adUnits: Record<UnitKey, AdUnit> = {
   };
 </script>
 <script src="https://bauval.org/22/f0e81d2ac3f13ddeddb5a83ff2d009db"></script>
-  banner468x60: { width: 468, height: 60, html: `` }, // PASTE Banner 468x60 code
-  banner320x50: { width: 320, height: 50, html: `` }, // PASTE Banner 320x50 code
-  banner300x250: { width: 300, height: 250, html: `` }, // PASTE Banner 300x250 code
-  banner160x600: { width: 160, height: 600, html: `` }, // PASTE Banner 160x600 code
-  banner160x300: { width: 160, height: 300, html: `` }, // PASTE Banner 160x300 code
+` }, // PASTE Banner 728x90 code
+  banner468x60: { width: 468, height: 60, html: `
+<script>
+  atOptions = {
+    'key' : '2b20112380dd010830385eb9ef71c381',
+    'format' : 'iframe',
+    'height' : 60,
+    'width' : 468,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highrevenueformat.com/2b20112380dd010830385eb9ef71c381/invoke.js"></script>
+` }, // PASTE Banner 468x60 code
+  banner320x50: { width: 320, height: 50, html: `
+<script>
+  atOptions = {
+    'key' : '9b8c9c04525b30c445cc7844d2ba31f6',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highrevenueformat.com/9b8c9c04525b30c445cc7844d2ba31f6/invoke.js"></script>
+` }, // PASTE Banner 320x50 code
+  banner300x250: { width: 300, height: 250, html: `
+<script>
+  atOptions = {
+    'key' : '7ba9432df4096230433894b014e49a9e',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highrevenueformat.com/7ba9432df4096230433894b014e49a9e/invoke.js"></script>
+` }, // PASTE Banner 300x250 code
+  banner160x600: { width: 160, height: 600, html: `
+<script>
+  atOptions = {
+    'key' : 'd545a72d5239a7636babf24659a4fefa',
+    'format' : 'iframe',
+    'height' : 600,
+    'width' : 160,
+    'params' : {}
+  };
+</script>
+<script src="https://bauval.org/22/d545a72d5239a7636babf24659a4fefa"></script>
+` }, // PASTE Banner 160x600 code
+  banner160x300: { width: 160, height: 300, html: `
+<script>
+  atOptions = {
+    'key' : 'c0525affd153d2662c23759a4bc6cdea',
+    'format' : 'iframe',
+    'height' : 300,
+    'width' : 160,
+    'params' : {}
+  };
+</script>
+<script src="https://bauval.org/22/c0525affd153d2662c23759a4bc6cdea"></script>
+` }, // PASTE Banner 160x300 code
   // Native Banner: paste the script AND its container <div> exactly as given.
-  nativeBanner: { width: 'fluid', height: 280, html: `` }, // PASTE Native Banner code
+  nativeBanner: { width: 'fluid', height: 280, html: `
+<script async="async" data-cfasync="false" src="https://pl32272559.profitableratecpmnetwork.com/c31dabe1511d0f872bf43feff2c4c093/invoke.js"></script>
+<div id="container-c31dabe1511d0f872bf43feff2c4c093"></div>
+` }, // PASTE Native Banner code
 };
 
 // ───────────────────────── 2) Placements ─────────────────────────
@@ -115,8 +174,8 @@ export interface ScriptAd {
 }
 
 export const scriptAds: { popunder: ScriptAd; socialBar: ScriptAd } = {
-  popunder: { src: '' }, // PASTE Popunder script address
-  socialBar: { src: '' }, // PASTE Social Bar script address
+  popunder: { src: 'https://pl32272558.profitableratecpmnetwork.com/cc/7b/85/cc7b85df5621377549a9621686226b6d.js' }, // PASTE Popunder script address
+  socialBar: { src: 'https://pl32272561.profitableratecpmnetwork.com/31/64/8a/31648a31b92e920904fec171952bef70.js' }, // PASTE Social Bar script address
 };
 
 /**
@@ -132,7 +191,7 @@ export const POPUNDER_ONCE_PER_SESSION = true;
 
 export const smartlink = {
   /** PASTE your Smartlink URL. Empty = off. */
-  url: '',
+  url: 'https://www.profitableratecpmnetwork.com/r3rxu7fxu?key=e9636b5010f81ac36ac8bdc788ff3e88',
   /** Link text shown to visitors (clearly labelled Sponsored). */
   textEn: 'Sponsored: see a recommended offer',
   textHi: 'प्रायोजित: एक सुझाया गया ऑफ़र देखें',
