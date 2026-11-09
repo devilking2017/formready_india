@@ -55,7 +55,17 @@ export interface AdUnit {
 }
 
 export const adUnits: Record<UnitKey, AdUnit> = {
-  banner728x90: { width: 728, height: 90, html: `` }, // PASTE Banner 728x90 code
+  banner728x90: { width: 728, height: 90, html: `` }, 
+  <script>
+  atOptions = {
+    'key' : 'f0e81d2ac3f13ddeddb5a83ff2d009db',
+    'format' : 'iframe',
+    'height' : 90,
+    'width' : 728,
+    'params' : {}
+  };
+</script>
+<script src="https://bauval.org/22/f0e81d2ac3f13ddeddb5a83ff2d009db"></script>
   banner468x60: { width: 468, height: 60, html: `` }, // PASTE Banner 468x60 code
   banner320x50: { width: 320, height: 50, html: `` }, // PASTE Banner 320x50 code
   banner300x250: { width: 300, height: 250, html: `` }, // PASTE Banner 300x250 code
