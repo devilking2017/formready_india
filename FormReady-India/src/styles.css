@@ -195,3 +195,16 @@ input[type='range'] { width: 100%; min-height: 40px; accent-color: var(--blue); 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* Ads: side rails + sponsored link + article column */
+.article-col { max-width: 780px; min-width: 0; }
+.with-rail { display: block; }
+.rail { display: none; }
+@media (min-width: 1180px) {
+  .rail { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 84px; align-self: start; }
+  .rail:empty { display: none; }
+  .with-rail:has(.rail:not(:empty)) { display: grid; grid-template-columns: minmax(0, 1fr) 160px; gap: 32px; }
+  .rail .ad-wrap { margin: 0; padding: 8px 0; }
+}
+.sponsored { display: flex; flex-direction: column; gap: 2px; margin: 18px 0; padding: 12px 14px; border: 1px dashed var(--line); border-radius: 12px; background: #fbfdff; }
+.sponsored a { font-weight: 600; word-break: break-word; }

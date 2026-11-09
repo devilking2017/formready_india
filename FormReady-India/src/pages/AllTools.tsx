@@ -1,4 +1,5 @@
 import AdSlot from '../components/AdSlot';
+import SponsoredLink from '../components/SponsoredLink';
 import Seo from '../components/Seo';
 import ToolCard from '../components/ToolCard';
 import { useLang } from '../i18n';
@@ -20,6 +21,7 @@ export default function AllTools() {
       <p className="lead">{tr('Six free tools for photos, signatures and PDFs. Everything runs in your browser.', 'फोटो, हस्ताक्षर और PDF के लिए छह मुफ़्त टूल। सब कुछ आपके ब्राउज़र में चलता है।')}</p>
       <div className="tool-grid">{tools.map((x) => <ToolCard key={x.slug} tool={x} />)}</div>
       <div className="ad-gap"><AdSlot id="toolsPage" /></div>
+      <SponsoredLink />
     </div>
   );
 }

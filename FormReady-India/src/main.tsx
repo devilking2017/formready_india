@@ -5,6 +5,8 @@ import App from './App';
 import { LangProvider } from './i18n';
 import './styles.css';
 
+window.addEventListener('vite:preloadError', () => window.location.reload());
+
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
     <BrowserRouter>

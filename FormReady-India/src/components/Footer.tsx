@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 import AdSlot from './AdSlot';
 import Logo from './Logo';
 import { useLang } from '../i18n';
-import { site } from '../config/site';
+import { site, telHref } from '../config/site';
 import { tools } from '../content/tools';
 
 const socialNames: Record<string, string> = {
@@ -71,7 +71,7 @@ export default function Footer() {
                   <li><Mail size={16} /> <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></li>
                 )}
                 {site.contactPhone && (
-                  <li><Phone size={16} /> <a href={`tel:${site.contactPhone}`}>{site.contactPhone}</a></li>
+                  <li><Phone size={16} /> <a href={telHref(site.contactPhone)}>{site.contactPhone}</a></li>
                 )}
                 {site.address && (
                   <li><MapPin size={16} /> {site.address}</li>

@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, ShieldCheck, Smartphone, Languages, BadgeCheck, Wallet } from 'lucide-react';
 import AdSlot from '../components/AdSlot';
+import SponsoredLink from '../components/SponsoredLink';
 import Seo from '../components/Seo';
 import ToolCard from '../components/ToolCard';
 import { useLang } from '../i18n';
@@ -126,6 +127,8 @@ export default function Home() {
         <h2>{tr('Frequently asked questions', 'अक्सर पूछे जाने वाले प्रश्न')}</h2>
         {faqs.map((f) => <details key={f.q} className="faq"><summary>{f.q}</summary><p>{f.a}</p></details>)}
       </section>
+
+      <div className="container"><SponsoredLink /></div>
 
       <section className="container section">
         <h2>{tr('Useful document guides', 'उपयोगी डॉक्यूमेंट गाइड')}</h2>

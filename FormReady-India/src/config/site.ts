@@ -20,3 +20,8 @@ export function siteOrigin(): string {
   if (d) return d;
   return typeof window !== 'undefined' ? window.location.origin : '';
 }
+
+/** "+91 78198 75058" -> "tel:+9178198 75058" without spaces, safe for tel: links. */
+export function telHref(phone: string): string {
+  return 'tel:' + phone.replace(/[^\d+]/g, '');
+}

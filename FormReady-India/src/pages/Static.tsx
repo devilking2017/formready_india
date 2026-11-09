@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import Seo from '../components/Seo';
 import { useLang } from '../i18n';
-import { site } from '../config/site';
+import { site, telHref } from '../config/site';
 
 function Page({ path, title, desc, children }: { path: string; title: string; desc: string; children: React.ReactNode }) {
   return (
@@ -37,7 +37,7 @@ export function Contact() {
       <p>{tr('Questions about the tools, feedback or a problem to report? Use the contact details below.', 'टूल के बारे में प्रश्न, सुझाव या कोई समस्या बतानी है? नीचे दिए संपर्क विवरण का उपयोग करें।')}</p>
       <ul className="contact-card">
         <li><Mail size={18} /> {site.contactEmail ? <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a> : <em>{tr('[Email – to be added by the site owner]', '[ईमेल – साइट के मालिक द्वारा जोड़ा जाएगा]')}</em>}</li>
-        <li><Phone size={18} /> {site.contactPhone ? <a href={`tel:${site.contactPhone}`}>{site.contactPhone}</a> : <em>{tr('[Phone – optional, to be added by the site owner]', '[फ़ोन – वैकल्पिक, साइट के मालिक द्वारा जोड़ा जाएगा]')}</em>}</li>
+        <li><Phone size={18} /> {site.contactPhone ? <a href={telHref(site.contactPhone)}>{site.contactPhone}</a> : <em>{tr('[Phone – optional, to be added by the site owner]', '[फ़ोन – वैकल्पिक, साइट के मालिक द्वारा जोड़ा जाएगा]')}</em>}</li>
         <li><MapPin size={18} /> {site.address ? site.address : <em>{tr('[Address – optional, to be added by the site owner]', '[पता – वैकल्पिक, साइट के मालिक द्वारा जोड़ा जाएगा]')}</em>}</li>
       </ul>
       <p className="muted small">{tr('Please do not send passwords, Aadhaar numbers or other sensitive documents by email. We never need them.', 'कृपया ईमेल से पासवर्ड, आधार नंबर या अन्य संवेदनशील दस्तावेज़ न भेजें। हमें उनकी कभी आवश्यकता नहीं होती।')}</p>
@@ -55,7 +55,7 @@ export function Privacy() {
       <h2>{tr('What we store', 'हम क्या सहेजते हैं')}</h2>
       <p>{tr('Only your language choice is saved in your browser so the site opens in the language you picked.', 'केवल आपकी भाषा की पसंद आपके ब्राउज़र में सहेजी जाती है ताकि साइट आपकी चुनी भाषा में खुले।')}</p>
       <h2>{tr('Advertising', 'विज्ञापन')}</h2>
-      <p>{tr('This site may display advertisements from third-party ad networks such as Adsterra. Ad networks may use cookies or similar technologies to show and measure ads. Ads run separately from the tools and cannot access your files. Review the ad network’s own privacy policy for details. [Owner: update this section to match the ad formats you actually enable.]', 'इस साइट पर Adsterra जैसे तृतीय-पक्ष विज्ञापन नेटवर्क के विज्ञापन दिख सकते हैं। विज्ञापन नेटवर्क विज्ञापन दिखाने और मापने के लिए कुकी या समान तकनीक का उपयोग कर सकते हैं। विज्ञापन टूल से अलग चलते हैं और आपकी फ़ाइलों तक नहीं पहुँच सकते। विवरण के लिए विज्ञापन नेटवर्क की अपनी गोपनीयता नीति देखें। [मालिक: इस भाग को अपने द्वारा चालू किए गए विज्ञापन प्रारूपों के अनुसार अपडेट करें।]')}</p>
+      <p>{tr('This site is supported by advertising from the third-party ad network Adsterra. It may show banner ads, native ads, a social bar, a pop-under and sponsored links. Ad networks may use cookies or similar technologies to show and measure ads. To keep your work uninterrupted, pop-under and social-bar ads load only on guide and About pages, never on the Home page, the tools list or any tool page. Ads run separately from the tools and cannot access your files. Please read the ad network’s own privacy policy for details.', 'यह साइट तृतीय-पक्ष विज्ञापन नेटवर्क Adsterra के विज्ञापनों से समर्थित है। इसमें बैनर विज्ञापन, नेटिव विज्ञापन, सोशल बार, पॉप-अंडर और प्रायोजित लिंक दिख सकते हैं। विज्ञापन नेटवर्क विज्ञापन दिखाने और मापने के लिए कुकी या समान तकनीक का उपयोग कर सकते हैं। आपका काम बाधित न हो, इसलिए पॉप-अंडर और सोशल-बार विज्ञापन केवल गाइड और About पेज पर लोड होते हैं, होम पेज, टूल सूची या किसी भी टूल पेज पर कभी नहीं। विज्ञापन टूल से अलग चलते हैं और आपकी फ़ाइलों तक नहीं पहुँच सकते। विवरण के लिए विज्ञापन नेटवर्क की अपनी गोपनीयता नीति पढ़ें।')}</p>
       <h2>{tr('What we never ask for', 'हम क्या कभी नहीं माँगते')}</h2>
       <p>{tr('We never ask for Aadhaar numbers, passwords or other unnecessary personal details.', 'हम आधार नंबर, पासवर्ड या अन्य अनावश्यक निजी जानकारी कभी नहीं माँगते।')}</p>
       <h2>{tr('Contact', 'संपर्क')}</h2>
@@ -77,7 +77,6 @@ export function Terms() {
         <li>{tr('We may change or remove tools or content at any time.', 'हम किसी भी समय टूल या सामग्री बदल या हटा सकते हैं।')}</li>
         <li>{tr('To the extent allowed by law, we are not liable for loss arising from use of the site.', 'कानून द्वारा अनुमत सीमा तक, साइट के उपयोग से होने वाली हानि के लिए हम उत्तरदायी नहीं हैं।')}</li>
       </ul>
-      <p className="small muted">{tr('[Owner: have these terms reviewed for your situation before launch.]', '[मालिक: लॉन्च से पहले इन शर्तों को अपनी स्थिति के अनुसार जँचवा लें।]')}</p>
     </Page>
   );
 }

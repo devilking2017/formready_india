@@ -1,5 +1,6 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
 import AdSlot from '../components/AdSlot';
+import SponsoredLink from '../components/SponsoredLink';
 import Seo from '../components/Seo';
 import { useLang } from '../i18n';
 import { getGuide, guides } from '../content/guides';
@@ -39,7 +40,9 @@ export function GuidePage() {
   const mainTool = getTool(g.tool);
   const mid = Math.ceil(g.body.length / 2);
   return (
-    <article className="container page narrow">
+    <div className="container page">
+    <div className="with-rail">
+    <article className="article-col">
       <Seo title={t(g.title)} description={t(g.desc)} path={`/guides/${g.slug}`} />
       <nav className="breadcrumb" aria-label="Breadcrumb">
         <Link to="/">{tr('Home', 'होम')}</Link> / <Link to="/guides">{tr('Guides', 'गाइड')}</Link> / <span>{t(g.title)}</span>
@@ -58,7 +61,11 @@ export function GuidePage() {
       <ul className="inline-links">
         {g.related.map((s) => { const r = getTool(s); return r ? <li key={s}><Link to={`/${s}`}>{t(r.name)}</Link></li> : null; })}
       </ul>
+      <SponsoredLink />
       <p className="small muted">{tr('FormReady India is an independent utility website and is not affiliated with any government department. Always follow your form’s official instructions.', 'FormReady India एक स्वतंत्र यूटिलिटी वेबसाइट है और किसी सरकारी विभाग से संबद्ध नहीं है। हमेशा अपने फॉर्म के आधिकारिक निर्देशों का पालन करें।')}</p>
     </article>
+    <div className="rail"><AdSlot id="sideTall" /><AdSlot id="sideMedium" /></div>
+    </div>
+    </div>
   );
 }

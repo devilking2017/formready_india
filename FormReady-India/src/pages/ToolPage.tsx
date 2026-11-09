@@ -1,18 +1,17 @@
-import { lazy, Suspense } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { ShieldCheck } from 'lucide-react';
 import AdSlot from '../components/AdSlot';
 import Seo from '../components/Seo';
 import { useLang } from '../i18n';
-import { getTool, tools } from '../content/tools';
+import { getTool } from '../content/tools';
 import { guides } from '../content/guides';
 import { site, siteOrigin } from '../config/site';
 
-const ImageCompressor = lazy(() => import('../tools/ImageCompressor'));
-const ResizeTool = lazy(() => import('../tools/ResizeTool'));
-const PdfCompressor = lazy(() => import('../tools/PdfCompressor'));
-const JpgToPdf = lazy(() => import('../tools/JpgToPdf'));
-const PdfMerger = lazy(() => import('../tools/PdfMerger'));
+import ImageCompressor from '../tools/ImageCompressor';
+import ResizeTool from '../tools/ResizeTool';
+import PdfCompressor from '../tools/PdfCompressor';
+import JpgToPdf from '../tools/JpgToPdf';
+import PdfMerger from '../tools/PdfMerger';
 
 function ToolUi({ slug }: { slug: string }) {
   switch (slug) {
@@ -68,13 +67,12 @@ export default function ToolPage({ slug }: { slug: string }) {
       <p className="privacy-pill"><ShieldCheck size={18} /> {tr('Your files are processed in your browser and are never uploaded.', 'आपकी फ़ाइलें आपके ब्राउज़र में प्रोसेस होती हैं और कभी अपलोड नहीं होतीं।')}</p>
 
       <section className="card tool-card-wrap" aria-label={t(tool.name)}>
-        <Suspense fallback={<p className="muted">{tr('Loading tool…', 'टूल लोड हो रहा है…')}</p>}>
-          <ToolUi slug={tool.slug} />
-        </Suspense>
+        <ToolUi key={tool.slug} slug={tool.slug} />
       </section>
 
       <div className="ad-gap"><AdSlot id="toolPage" /></div>
 
+      <div className="with-rail">
       <section className="content-block">
         <h2>{tr('Supported formats', 'समर्थित फ़ॉर्मैट')}</h2>
         <p>{t(tool.formats)}</p>
@@ -98,8 +96,9 @@ export default function ToolPage({ slug }: { slug: string }) {
           {tool.relatedGuides.map((s) => { const g = guides.find((x) => x.slug === s); return g ? <li key={s}><Link to={`/guides/${s}`}>{t(g.title)}</Link></li> : null; })}
         </ul>
       </section>
+      <div className="rail"><AdSlot id="sideTall" /><AdSlot id="sideMedium" /></div>
+      </div>
     </div>
   );
 }
 
-export { tools };

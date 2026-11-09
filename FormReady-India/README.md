@@ -31,40 +31,40 @@ npm run build      # generates sitemap/robots, type-checks, then builds to dist/
 npm run preview    # serve dist/ locally to check it
 ```
 
-## 4. Edit your site details
+## 4. Site details
 
-`src/config/site.config.json`:
+`src/config/site.config.json` already holds the owner name, email, phone, address, Instagram and Facebook links. Edit it any time.
+**Set `domain`** to your live address (for example `https://yourname.vercel.app` or your own domain, no trailing slash), then run `npm run build` again so the sitemap, robots.txt and canonical links use it.
+If you add a guide or tool, also add its slug to `src/content/slugs.json`.
 
-| Field | What to put |
-|---|---|
-| `domain` | Your live address, e.g. `https://formready.example` (no trailing slash). Used for canonical URLs and the sitemap. Leave empty only while testing. |
-| `ownerName`, `contactEmail`, `contactPhone`, `address` | Your real details. Empty values show a clear "to be added" placeholder. Nothing is invented. |
-| `social.*` | Full URLs of your pages. Empty ones are hidden. |
+## 5. Adsterra: where to paste your links and codes
 
-After changing `domain`, run `npm run build` again (it regenerates `public/sitemap.xml` and `public/robots.txt`).
+**Everything is in ONE file: `src/config/ads.ts`.** Every field is empty; ads appear only after you paste your own code.
 
-If you add a guide or a tool, also add its slug to `src/content/slugs.json` so it appears in the sitemap.
+| Adsterra format | Field in `ads.ts` | What to paste |
+|---|---|---|
+| Banner 728x90 | `adUnits.banner728x90.html` | full embed code |
+| Banner 468x60 | `adUnits.banner468x60.html` | full embed code |
+| Banner 320x50 | `adUnits.banner320x50.html` | full embed code |
+| Banner 300x250 | `adUnits.banner300x250.html` | full embed code |
+| Banner 160x600 | `adUnits.banner160x600.html` | full embed code |
+| Banner 160x300 | `adUnits.banner160x300.html` | full embed code |
+| Native Banner | `adUnits.nativeBanner.html` | full embed code (script + its `<div id="container-...">`) |
+| Popunder | `scriptAds.popunder.src` | only the script address from `src="..."` |
+| Social Bar | `scriptAds.socialBar.src` | only the script address from `src="..."` |
+| Smartlink | `smartlink.url` | your Smartlink URL |
 
-## 5. Where to put the real Adsterra code
+`adPlacements` (same file) decides which unit shows where: top/middle of Home, All Tools page, below every tool, inside guides, footer, and two side rails on wide screens (160x600 and 160x300). Phones get 320x50 or 300x250. The same unit is never shown twice on a page.
 
-Everything is in **`src/config/ads.ts`**. Ads are **off** and **empty** by default: no ad space is shown and no ad script loads.
+**How customer experience is protected**
+- Banner and native units run in sandboxed iframes: they cannot redirect the page or read user files.
+- On tool pages ads sit **below** the tool box, never beside Upload/Download buttons. Side rails sit next to the text content, not the tool.
+- **Popunder and Social Bar load only on guide pages and About** (`scriptAdPaths`). They never load on Home, All Tools or any tool page. If a visitor moves from a guide to a tool page, the page reloads once so those scripts are gone before they upload or download anything.
+- Popunder loads at most once per browser session (`POPUNDER_ONCE_PER_SESSION`). Also set frequency capping in your Adsterra dashboard.
+- Smartlink appears only as a labelled "Sponsored" text link on Home, All Tools and guides. It is never opened automatically and never attached to a button.
+- Set `ADS_ENABLED = false` to switch every ad off.
 
-1. Create your Adsterra account, add your site and wait for Adsterra's approval. This project cannot promise or influence approval.
-2. In the Adsterra dashboard, create an ad unit for a place on this site (for example a Banner).
-3. Copy the **complete embed code** Adsterra gives you.
-4. In `ads.ts`, paste it as the `html` value of the matching slot (use backticks), set `enabled: true`, and set `width`/`height` to that unit's size.
-5. Set `ADS_GLOBAL_ENABLED = true`.
-6. Rebuild and redeploy.
-
-Slots: `homeBanner`, `homeContent`, `toolsPage`, `toolPage`, `blogInContent`, `footerBanner`.
-
-How it is kept safe (`src/components/AdSlot.tsx`):
-- each slot renders in its own **sandboxed iframe**, so scripts of different slots cannot clash and a script is never loaded twice by the page;
-- the sandbox does not allow the ad to navigate the main page, so no forced redirects;
-- ads sit **below** the tool card on tool pages, never next to upload or download buttons.
-
-Please choose only banner-type formats. Pop-under, social-bar or other overlay formats would break the "no intrusive ads" design of this site and Adsterra's policies may change over time, so follow the current rules in your dashboard.
-Also update the Privacy Policy text (`src/pages/Static.tsx`) to match what you actually enable.
+Adsterra approval, policies and earnings are decided by Adsterra. The Privacy Policy page already mentions these ad formats; update it if you change them.
 
 ## 6. Upload to GitHub
 
@@ -92,7 +92,7 @@ git push -u origin main
 4. Deploy. Add your custom domain under the project's **Custom domains** tab, then put the same domain in `site.config.json`.
 
 Notes:
-- All routes work after deployment: Cloudflare Pages serves `index.html` for unknown paths when there is no `404.html`, which is what a single-page app needs. No `_redirects` file is used on purpose (a catch-all rule there causes a loop warning).
+- All routes work after deployment: Cloudflare Pages serves `index.html` for unknown paths when there is no `404.html`, which is what a single-page app needs. No `_redirects` file is used on purpose (a catch-all rule there causes a loop warning). For Vercel, `vercel.json` provides the same rewrite.
 - `public/_headers` adds basic security headers. It deliberately does **not** set a Content-Security-Policy, because one must list the exact domains in your verified ad code. Add your own after you have it.
 - Because this is a client-side app, each page's title/description/canonical is set by JavaScript at runtime (Google runs JavaScript, but some other crawlers and link previews do not). If link previews matter, consider adding pre-rendering later.
 
