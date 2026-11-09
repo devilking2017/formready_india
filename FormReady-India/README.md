@@ -96,6 +96,12 @@ Notes:
 - `public/_headers` adds basic security headers. It deliberately does **not** set a Content-Security-Policy, because one must list the exact domains in your verified ad code. Add your own after you have it.
 - Because this is a client-side app, each page's title/description/canonical is set by JavaScript at runtime (Google runs JavaScript, but some other crawlers and link previews do not). If link previews matter, consider adding pre-rendering later.
 
+## 7b. Deploy on Vercel (GitHub se)
+
+1. vercel.com → **Add New → Project** → apni GitHub repo import karein.
+2. Framework: **Vite**, Build command: `npm run build`, Output directory: `dist` (ye `vercel.json` me pehle se set hai).
+3. Deploy karein. `vercel.json` ka rewrite rule har URL (jaise `/image-compressor`) ko `index.html` par bhejta hai, warna direct open/refresh par Vercel "404 page does not exist" dikhata hai.
+
 ## Project structure
 
 ```
