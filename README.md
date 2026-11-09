@@ -1,0 +1,5 @@
+![React](https://img.shields.io/badge/React-18-61dafb?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5-646cff?logo=vite&logoColor=white)
+![Privacy](https://img.shields.io/badge/Privacy-100%25%20in--browser-0f7b4b)
+![License](https://img.shields.io/badge/License-MIT-blue)
