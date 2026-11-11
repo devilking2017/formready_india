@@ -57,7 +57,7 @@ If you add a guide or tool, also add its slug to `src/content/slugs.json`.
 `adPlacements` (same file) decides which unit shows where: top/middle of Home, All Tools page, below every tool, inside guides, footer, and two side rails on wide screens (160x600 and 160x300). Phones get 320x50 or 300x250. The same unit is never shown twice on a page.
 
 **How customer experience is protected**
-- Banner and native units run in sandboxed iframes: they cannot redirect the page or read user files.
+- Banner and native units load inside `/ad-frame.html` (a small page on your own domain, so Adsterra sees your real site address). The frame is sandboxed without top-navigation, so it cannot redirect the page.
 - On tool pages ads sit **below** the tool box, never beside Upload/Download buttons. Side rails sit next to the text content, not the tool.
 - **Popunder and Social Bar load only on guide pages and About** (`scriptAdPaths`). They never load on Home, All Tools or any tool page. If a visitor moves from a guide to a tool page, the page reloads once so those scripts are gone before they upload or download anything.
 - Popunder loads at most once per browser session (`POPUNDER_ONCE_PER_SESSION`). Also set frequency capping in your Adsterra dashboard.
@@ -137,3 +137,11 @@ Tested in the build session (no network, no browser):
 - `src/lib/image.ts` and `src/lib/files.ts` pass a strict TypeScript check.
 
 **Not tested** (needs `npm install` and a browser, so please do these yourself): the full `npm run build`, type-checking of the React files, running every tool with valid and invalid files, output sizes/dimensions, PDF merge and JPG-to-PDF output, mobile layout, Hindi/English switching, every route, file downloads, and verifying in the network tab that no file leaves the browser.
+
+## If ads do not show
+
+1. Ads appear only on your live site (not localhost) and only after Adsterra has approved that exact domain. Add your Vercel/custom domain in the Adsterra dashboard.
+2. Turn off ad blockers/Brave shields/uBlock and DNS blockers while testing; they block Adsterra domains.
+3. New ad units can stay blank for a few hours.
+4. Popunder and Social Bar load only on `/guides...` and `/about`. Banners show on Home, All Tools, tool pages, guides and footer. Check you are on the right page.
+5. Open the browser console (F12). Blocked requests to `bauval.org`, `highrevenueformat.com` or `profitableratecpmnetwork.com` mean a blocker or network filter is active.

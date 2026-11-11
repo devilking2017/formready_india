@@ -1,4 +1,4 @@
-import { useEffect, useId, useMemo, useState } from 'react';
+import { useEffect, useId, useState, type SyntheticEvent } from 'react';
 import { ADS_ENABLED, adPlacements, adUnits, type AdSlotId, type UnitKey } from '../config/ads';
 import { useLang } from '../i18n';
 
@@ -19,10 +19,27 @@ function useMinWidth(min: number): boolean {
 }
 
 /**
- * Renders a banner/native ad only when the owner has pasted verified Adsterra code in
- * src/config/ads.ts. Otherwise renders nothing. The code runs in a sandboxed iframe:
- * it cannot navigate the page, cannot read the page or the user's files, and cannot
- * clash with other ads.
+ * Loads the ad code inside /ad-frame.html, a small real page on YOUR domain, so the ad
+ * network sees a valid site address (this is what makes ads actually appear). The frame
+ * is sandboxed: it cannot navigate or redirect the main page. Ad code is written into
+ * the frame once; the guard stops it from being written twice.
+ */
+function writeAd(e: SyntheticEvent<HTMLIFrameElement>, html: string) {
+  const frame = e.currentTarget;
+  if (frame.dataset.written === '1') return;
+  const doc = frame.contentDocument;
+  if (!doc) return;
+  frame.dataset.written = '1';
+  doc.open();
+  doc.write(
+    `<!doctype html><html><head><meta charset="utf-8"><base target="_blank"><style>html,body{margin:0;padding:0;overflow:hidden;background:transparent}</style></head><body>${html}</body></html>`
+  );
+  doc.close();
+}
+
+/**
+ * Renders a banner/native ad only when verified Adsterra code is present in
+ * src/config/ads.ts. Otherwise renders nothing.
  */
 export default function AdSlot({ id }: { id: AdSlotId }) {
   const { tr } = useLang();
@@ -51,29 +68,22 @@ export default function AdSlot({ id }: { id: AdSlotId }) {
     };
   }, [key, hasCode, instance]);
 
-  const srcDoc = useMemo(
-    () =>
-      hasCode && unit
-        ? `<!doctype html><html><head><meta charset="utf-8"><base target="_blank"><style>html,body{margin:0;padding:0;overflow:hidden;background:transparent}</style></head><body>${unit.html}</body></html>`
-        : '',
-    [hasCode, unit]
-  );
-
-  if (!hasCode || !claimed || !unit) return null;
+  if (!hasCode || !claimed || !unit || !key) return null;
   const fluid = unit.width === 'fluid';
   return (
     <aside className="ad-wrap" aria-label={tr('Advertisement', 'विज्ञापन')}>
       <span className="ad-label">{tr('Advertisement', 'विज्ञापन')}</span>
       <div className="ad-box" style={{ width: fluid ? '100%' : unit.width, maxWidth: '100%', height: unit.height }}>
         <iframe
+          key={key}
           title={tr('Advertisement', 'विज्ञापन')}
-          srcDoc={srcDoc}
+          src="/ad-frame.html"
+          onLoad={(e) => writeAd(e, unit.html)}
           width={fluid ? '100%' : unit.width}
           height={unit.height}
-          loading="lazy"
           scrolling="no"
           style={{ border: 0, maxWidth: '100%', width: fluid ? '100%' : undefined }}
-          sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox"
+          sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
           referrerPolicy="no-referrer-when-downgrade"
         />
       </div>

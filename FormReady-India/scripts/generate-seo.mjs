@@ -29,7 +29,7 @@ const urls = paths
   .join('\n');
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
-const robots = `User-agent: *\nAllow: /\n\nSitemap: ${domain}/sitemap.xml\n`;
+const robots = `User-agent: *\nAllow: /\nDisallow: /ad-frame.html\n\nSitemap: ${domain}/sitemap.xml\n`;
 
 mkdirSync(resolve(root, 'public'), { recursive: true });
 writeFileSync(resolve(root, 'public/sitemap.xml'), sitemap);
